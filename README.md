@@ -3,7 +3,7 @@
 A methodology for **significant token reduction** in AI-assisted software development through intelligent documentation structure and context-aware reading strategies.
 
 <p align="center">
-  <img src="templates/vibe-coding-ai-assisted.jpeg" alt="AI Vibe Coding vs Engineer-Guided AI" width="600" />
+  <img src="vibe-coding-ai-assisted.jpeg" alt="AI Vibe Coding vs Engineer-Guided AI" width="600" />
 </p>
 
 ---
