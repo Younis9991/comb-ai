@@ -1,0 +1,78 @@
+---
+description: "Add a COMB memory bank to an existing project by analyzing the codebase. Trigger: user says 'adopt memory bank', 'add memory bank to project', or 'setup memory bank for existing project'."
+globs:
+alwaysApply: false
+---
+
+# Adopt Memory Bank — Cursor Rule (Brownfield Projects)
+
+> **Trigger**: User says "adopt memory bank", "add memory bank", or "setup memory bank for existing project".
+> Unlike "create memory bank" (greenfield), this analyzes the existing codebase first.
+
+## When Triggered
+
+### Step 1 — Analyze the codebase first (don't ask)
+
+Before asking questions, explore:
+
+1. **Directory layout**: Identify layers (backend, frontend, infra)
+2. **Dependencies**: Read package.json, *.csproj, go.mod, etc.
+3. **Configuration**: Config files, CI/CD pipelines
+4. **Existing docs**: README.md, architecture docs, ADRs
+5. **Git history**: `git log --oneline -20` for recent focus
+6. **Tests**: Test frameworks, coverage configuration
+
+### Step 2 — Present findings and confirm
+
+Show the user what was discovered:
+- Detected domains and tech stacks
+- Architecture style (monolith, microservices, etc.)
+- Recent development focus
+- Existing documentation found
+
+Ask: "Does this look correct? Anything to add or correct?"
+
+### Step 3 — Create pre-filled memory bank
+
+Create the full structure with **real data** (not placeholders):
+
+```
+memory-bank/
+├── INDEX.md              ← From analysis
+├── core/
+│   ├── projectbrief.md   ← From existing docs
+│   ├── productContext.md  ← From README or user input
+│   ├── active-context.md  ← From git log + user input
+│   └── sprint-tracker.md  ← Current sprint if applicable
+├── tech/
+│   └── [domain]-stack.md  ← From dependency analysis
+└── arch/
+    ├── patterns-overview.md   ← From code structure
+    └── decisions-summary.md   ← From existing ADRs
+```
+
+Also create project root files:
+- `memory-bank-protocol.md` — COMB methodology
+- `project-rules.md` — Pre-fill with detected conventions
+- `.cursor/rules/memory-bank.mdc` — Auto-loader wrapper
+- `.cursor/rules/update-memory-bank.mdc` — Auto-update rule
+
+### Step 4 — Report
+
+Summarize what was created and flag inferences that need review.
+
+## Key Differences from Create (Greenfield)
+
+| Greenfield | Brownfield |
+|-----------|-----------|
+| User answers questions | Codebase analysis first |
+| Placeholders filled by user | Pre-filled from real data |
+| Empty active context | Populated from git history |
+| User describes architecture | Inferred from code |
+
+## Rules
+
+- Analyze first, ask second — show findings before questions
+- Pre-fill with real data, flag low-confidence inferences with "*(inferred — verify)*"
+- Keep files under 400 lines
+- Incorporate existing docs — don't duplicate or replace

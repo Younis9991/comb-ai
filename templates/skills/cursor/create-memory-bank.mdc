@@ -1,0 +1,81 @@
+---
+description: "Create a COMB memory bank for a new (greenfield) project. Trigger: user says 'create memory bank'. For existing projects use 'adopt memory bank' instead."
+globs:
+alwaysApply: false
+---
+
+# Create Memory Bank — Cursor Rule (Greenfield)
+
+> **Trigger**: User says "create memory bank", "initialize memory bank", or "setup memory bank".
+> This rule is NOT always-apply — it activates only when Cursor detects a matching request.
+>
+> **For existing projects with code**: Use "adopt memory bank" instead — it analyzes
+> the codebase and pre-fills memory bank files with real data.
+
+## When Triggered
+
+### Step 1 — Gather project information
+
+Ask the user:
+
+1. **Project name**: What is the project called?
+2. **Technical domains**: What are the main development areas? (e.g., backend, frontend, infrastructure)
+3. **Tech stack per domain**: What technologies are used?
+4. **Current phase**: Kickoff, active development, or maintenance?
+
+### Step 2 — Create directory structure
+
+```
+memory-bank/
+├── INDEX.md
+├── core/
+│   ├── projectbrief.md
+│   ├── productContext.md
+│   ├── active-context.md
+│   └── sprint-tracker.md
+├── tech/
+│   └── (one file per domain)
+└── arch/
+    ├── patterns-overview.md
+    └── decisions-summary.md
+```
+
+### Step 3 — Create project root files
+
+1. **`memory-bank-protocol.md`** — COMB methodology (read `memory-bank-protocol.md` for template)
+2. **`project-rules.md`** — Project rules with dynamic zone (read `project-rules.md` for template)
+3. **`.cursor/rules/memory-bank.mdc`** — This file's companion: auto-loader wrapper
+
+### Step 4 — Fill INDEX.md
+
+The INDEX is the most critical file. It must contain:
+
+- Project overview (name, team, version, status)
+- Smart reading strategy decision tree (customized to domains)
+- Cache-aware reading order (static before dynamic)
+- File map with line counts
+- Key technologies summary
+
+### Step 5 — Create core and domain files
+
+- `core/projectbrief.md` — Project scope, goals, constraints
+- `core/productContext.md` — Product vision, target users
+- `core/active-context.md` — Current phase and first tasks
+- `core/sprint-tracker.md` — Sprint 1 if applicable
+- `tech/{domain}-stack.md` — One per domain with tech choices and patterns
+- `arch/patterns-overview.md` — Initial architecture patterns
+- `arch/decisions-summary.md` — ADR-001: initial architecture
+
+### Step 6 — Report
+
+After creation, summarize:
+- Files created with line counts
+- Estimated daily read (~1,050 lines)
+- Token reduction estimate
+
+## Rules
+
+- Keep each file under 400 lines (target) / 600 lines (max)
+- INDEX.md must contain the reading strategy decision tree
+- Static files (tech/, arch/) listed before dynamic files in reading order
+- Do NOT create archive files — they're created when needed

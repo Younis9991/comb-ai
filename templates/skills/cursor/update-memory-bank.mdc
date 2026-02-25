@@ -1,0 +1,97 @@
+---
+alwaysApply: true
+priority: high
+---
+
+# Memory Bank Auto-Update — Cursor Rule
+
+> **Always active.** This rule ensures the AI automatically updates the memory bank
+> when task completion is detected. No manual trigger required.
+>
+> Manual override: User says **"update memory bank"** for a full-scope review.
+
+## Automatic Trigger Conditions
+
+AI MUST detect task completion and automatically execute memory bank update when:
+
+- Task implementation completed (code changes committed or ready)
+- Sprint task marked complete
+- Bug fix implemented
+- Feature implementation finished
+- Architectural decision made
+
+## Completion Signal Detection
+
+AI MUST monitor for these signals to trigger auto-update:
+
+- User says: "done", "finished", "complete", "task completed"
+- After implementing and testing code changes
+- After fixing bugs
+- After architectural decisions documented
+- At end of sprint milestone
+- When user asks "What's next?" or "Next task?"
+
+## Scope Detection
+
+Determine scope automatically based on what changed:
+
+- **Minimal**: Single task completed → sprint-tracker + active-context
+- **Standard**: Feature implemented → + progress
+- **Full**: Sprint completed or major milestone → + archive + arch/tech files
+- **Architecture**: Architecture decision made → + arch/patterns-overview + decisions-summary
+- **Tech Stack**: New dependency or technology → + relevant tech/*.md
+
+## Update Priority Order
+
+1. **core/sprint-tracker.md** → Task status, actual hours, completion percentage
+2. **core/active-context.md** → Current work, next steps, resolved blockers
+3. **core/progress.md** → What works, what's left, overall status (standard/full only)
+4. **project-rules.md dynamic zone** → Recent patterns catalog, sprint context
+5. **tech/*.md** → If tech stack changed
+6. **arch/*.md** → If architecture changed
+
+## Report Format
+
+After updating, report concisely:
+
+```
+Memory Bank Updated
+
+Scope: [minimal/standard/full/architecture/tech-stack]
+Trigger: [task description]
+
+Updated:
+- core/sprint-tracker.md → [what changed]
+- core/active-context.md → [what changed]
+
+Next steps:
+- [what's next]
+```
+
+## File Size Limits
+
+Check after updating — archive when exceeded:
+
+| File | Max Lines | Archive To |
+|------|-----------|-----------|
+| active-context.md | 200 | progress-archive.md |
+| sprint-tracker.md | 600 | progress-archive.md |
+| progress.md | 600 | progress-archive.md |
+| tech/*.md | 600 | Split into sub-domain files |
+| arch/patterns-overview.md | 350 | patterns-detailed.md |
+
+## Mandatory Behavior
+
+1. **Always monitor** for task completion signals
+2. **Automatically trigger** update process — do not ask permission
+3. **Determine scope** intelligently based on task type
+4. **Update files** in priority order
+5. **Report concisely** what was updated
+6. **Continue workflow** — suggest the next task after reporting
+
+## Prohibited
+
+- Do NOT ask "Should I update memory bank?" — just do it
+- Do NOT wait for explicit command — auto-trigger on completion
+- Do NOT update files unrelated to the completed task
+- Do NOT write verbose reports — keep it concise

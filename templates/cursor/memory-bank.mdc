@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+# Memory Bank — Cursor Auto-Loader
+
+> This `.mdc` file is a Cursor-specific wrapper. Its only job is to auto-inject
+> the shared protocol and rules files into every Cursor session.
+>
+> The actual content lives in plain markdown files that any AI tool can read.
+
+## Read These Files
+
+1. **`memory-bank-protocol.md`** — Memory bank methodology, reading strategy, workflows, update protocol
+2. **`project-rules.md`** — Project-specific rules, coding standards, constraints + dynamic sprint zone
+3. **`memory-bank/INDEX.md`** — Routing hub, follow its reading strategy for the current task type
+
+## Companion Rules
+
+- **`.cursor/rules/update-memory-bank.mdc`** — Auto-updates memory bank after task completion
+- **`.cursor/rules/create-memory-bank.mdc`** — Initializes memory bank for new projects
